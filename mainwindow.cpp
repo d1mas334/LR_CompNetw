@@ -1,6 +1,18 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
+using namespace std;
+
+#define INF 99999
+//#ifdef Dijcstra
+struct ver {
+    int minval;
+    string path;
+    bool used;
+};
+//#endif
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -62,8 +74,43 @@ void LineFromCToC(int x1, int y1, int x2, int y2, QPainter *painter){
     }
     //  рисование ребра по полученным ближайшим друг к другу точкам
     painter->drawLine((int)xm1, (int)ym1, (int)xm2, (int)ym2);
+}
 
-    return;
+vector<ver> Dijcstra(int a, int v[10][10]/*, string *str, int *val*/){  // реализация алгоритма Дейкстры
+    vector<ver> arr(10);
+    int n = 10, ve;
+    for (int i = 0; i < 10; i++){
+        arr[i].minval = INF;
+        arr[i].path = "";
+        arr[i].used = false;
+    }
+    arr[a].minval = 0;
+    arr[a].path = "";
+    for (int i = 0; i < n; i++){
+        ve = NULL;
+        for (int j = 0; j < n; j++){
+            if (!arr[ve].used && (ve == NULL || arr[ve].minval > arr[j].minval )){
+                ve = j;
+            }
+        }
+        if (arr[ve].minval == INF){
+            break;
+        }
+        arr[ve].used = true;
+        for(int j = 0; j < n; j++){
+            if(arr[ve].minval + v[ve][j] < arr[j].minval){
+                arr[j].minval = arr[ve].minval + v[ve][j];
+                if(arr[j].path == ""){
+                    arr[j].path = string(&"" [ char(a)]);
+                    arr[j].path+= (&"-" [ ve]);
+                } else {
+                    arr[j].path+= (&"-" [ ve]);
+                }
+            }
+        }
+    }
+
+    return arr;
 }
 
 void MainWindow::paintEvent(QPaintEvent *)
@@ -84,6 +131,17 @@ void MainWindow::paintEvent(QPaintEvent *)
     painter.drawEllipse(300, 350, 24, 24);  //9
 
     painter.drawEllipse(200, 400, 24, 24);  //10
+
+    vector<ver> arr(10);
+    int n = 10, ve = 3, a = 1;
+    for (int i = 0; i < 10; i++){
+        arr[i].minval = INF;
+        arr[i].path = "";
+        arr[i].used = false;
+    }
+    arr[0].path = string(&"" [ char(a)]);
+    arr[0].path+= (&"-" [ ve]);
+    qDebug()<<arr[0].path;
 
     LineFromCToC(200, 100, 200, 200, &painter);  //1  1-4
     QLabel *label1_2 = new QLabel(this);
