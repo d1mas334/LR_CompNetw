@@ -101,10 +101,9 @@ vector<ver> Dijcstra(int a, int v[10][10]/*, string *str, int *val*/){  // ре�
             if(arr[ve].minval + v[ve][j] < arr[j].minval){
                 arr[j].minval = arr[ve].minval + v[ve][j];
                 if(arr[j].path == ""){
-                    arr[j].path = string(&"" [ char(a)]);
-                    arr[j].path+= (&"-" [ ve]);
+                    arr[j].path = to_string(a) + "-" + to_string(ve);
                 } else {
-                    arr[j].path+= (&"-" [ ve]);
+                    arr[j].path += "-" + to_string(ve);
                 }
             }
         }
@@ -131,17 +130,6 @@ void MainWindow::paintEvent(QPaintEvent *)
     painter.drawEllipse(300, 350, 24, 24);  //9
 
     painter.drawEllipse(200, 400, 24, 24);  //10
-
-    vector<ver> arr(10);
-    int n = 10, ve = 3, a = 1;
-    for (int i = 0; i < 10; i++){
-        arr[i].minval = INF;
-        arr[i].path = "";
-        arr[i].used = false;
-    }
-    arr[0].path = string(&"" [ char(a)]);
-    arr[0].path+= (&"-" [ ve]);
-    qDebug()<<arr[0].path;
 
     LineFromCToC(200, 100, 200, 200, &painter);  //1  1-4
     QLabel *label1_2 = new QLabel(this);
