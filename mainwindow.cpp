@@ -87,9 +87,9 @@ vector<ver> Dijcstra(int a, int v[10][10]/*, string *str, int *val*/){  // ре�
     arr[a].minval = 0;
     arr[a].path = "";
     for (int i = 0; i < n; i++){
-        ve = NULL;
+        ve = -1;
         for (int j = 0; j < n; j++){
-            if (!arr[ve].used && (ve == NULL || arr[ve].minval > arr[j].minval )){
+            if (!arr[ve].used && (ve == -1 || arr[ve].minval > arr[j].minval )){
                 ve = j;
             }
         }
