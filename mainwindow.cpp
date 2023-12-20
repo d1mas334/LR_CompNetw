@@ -125,17 +125,10 @@ void MainWindow::dijcstraButton(){
 }
 
 void MainWindow::lr1Button(){
-<<<<<<< Updated upstream
     ui->pushButton->setVisible(true);
     ui->spinBox->setVisible(true);
     ui->label->setVisible(true);
     ui->tableWidget->setVisible(true);
-=======
-    ui->tableWidget->setVisible(true);
-    ui->pushButton->setVisible(true);
-    ui->spinBox->setVisible(true);
-    ui->label->setVisible(true);
->>>>>>> Stashed changes
     ui->pushButton_2->setVisible(false);
     ui->pushButton_3->setVisible(false);
     ui->pushButton_4->setVisible(false);
@@ -506,21 +499,10 @@ MainWindow::MainWindow(QWidget *parent)
     }
     connect(ui->pushButton, SIGNAL (released()), this, SLOT (dijcstraButton()));
     connect(ui->pushButton_2, SIGNAL (released()), this, SLOT (lr1Button()));
-<<<<<<< Updated upstream
     ui->pushButton->setVisible(false);
     ui->spinBox->setVisible(false);
     ui->label->setVisible(false);
     ui->tableWidget->setVisible(false);
-=======
-
-
-    ui->tableWidget_2->setVisible(false);
-    ui->tableWidget->setVisible(false);
-    ui->pushButton->setVisible(false);
-    ui->spinBox->setVisible(false);
-    ui->label->setVisible(false);
-
->>>>>>> Stashed changes
 }
 
 MainWindow::~MainWindow()
