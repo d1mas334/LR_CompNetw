@@ -25,6 +25,7 @@ private:
 
 private slots:
     void dijcstraButton();
+    void lr1Button();
 
 protected:
     void paintEvent(QPaintEvent*) override;
