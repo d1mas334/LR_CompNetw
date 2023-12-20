@@ -66,6 +66,58 @@
      <string>Применить</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>160</y>
+      <width>261</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Нахождение кратчайших маршрутов</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>200</y>
+      <width>261</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Таблица пропускных способностей</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_4">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>240</y>
+      <width>261</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Задержки передачи сообщений по каналам</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_5">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>280</y>
+      <width>261</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Аппрокимация пропускных способностей</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

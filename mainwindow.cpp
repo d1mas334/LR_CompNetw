@@ -124,6 +124,17 @@ void MainWindow::dijcstraButton(){
     }
 }
 
+void MainWindow::lr1Button(){
+    ui->pushButton->setVisible(true);
+    ui->spinBox->setVisible(true);
+    ui->label->setVisible(true);
+    ui->tableWidget->setVisible(true);
+    ui->pushButton_2->setVisible(false);
+    ui->pushButton_3->setVisible(false);
+    ui->pushButton_4->setVisible(false);
+    ui->pushButton_5->setVisible(false);
+}
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -487,6 +498,11 @@ MainWindow::MainWindow(QWidget *parent)
         ui->tableWidget->setItem(i - 1, 2, item2);
     }
     connect(ui->pushButton, SIGNAL (released()), this, SLOT (dijcstraButton()));
+    connect(ui->pushButton_2, SIGNAL (released()), this, SLOT (lr1Button()));
+    ui->pushButton->setVisible(false);
+    ui->spinBox->setVisible(false);
+    ui->label->setVisible(false);
+    ui->tableWidget->setVisible(false);
 }
 
 MainWindow::~MainWindow()
