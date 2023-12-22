@@ -468,36 +468,13 @@ MainWindow::MainWindow(QWidget *parent)
         label19_3->setGeometry(230 + 8, 375 + 4, 230 + 24, 375 + 20);
         label19_3->show();
 
-    /*  Создание массива весов  */
-    double v [10][10] =
-        {0, 3.1943, 10.433, 2.3425, INF, INF, INF, INF, INF, INF,
-         3.1943, 0, INF, 4.376, 6.549, INF, INF, INF, INF, INF,
-         10.433, INF, 0, INF, INF, 7.341, INF, INF, INF, INF,
-         2.3425, 4.376, INF, 0, 5.982, 7.547, 5.2475, INF, INF, INF,
-         INF, 6.549, INF, 5.982, 0, INF, 6.4318, 5.4566, INF, INF,
-         6.455, INF, 7.341, 7.547, INF, 0, 6.7876, INF, 8.3428, INF,
-         INF, INF, INF, 5.2475, 6.4318, 6.7876, 0, 4.87, 5.1207, INF,
-         INF, INF, INF, INF, 5.4566, INF, 4.87, 0, 2.1452, 6.8721,
-         INF, INF, INF, INF, INF, 8.3428, 5.1207, 2.1452, 0, 7.4321,
-         INF, INF, INF, INF, INF, INF, INF, 6.8721, 7.4321, 0};
-
     /*  Заполнение таблицы  */
     ui->tableWidget->setColumnCount(2);
     ui->tableWidget->setRowCount(10);
     QStringList hLabels;
     hLabels<<"Расстояние"<<"Путь";
     ui->tableWidget->setHorizontalHeaderLabels(hLabels);
-    vector<ver> paths(10);
-    int a = ui->spinBox->value();
-    paths = Dijcstra(a, v);
-    for(int i = 0; i < 10; i++){
-        QTableWidgetItem* item = new QTableWidgetItem();
-        item->setText(QString::fromStdString(paths[i].path));
-        ui->tableWidget->setItem(i - 1, 3, item);
-        QTableWidgetItem* item2 = new QTableWidgetItem();
-        item2->setText(QString::number(paths[i].minval));
-        ui->tableWidget->setItem(i - 1, 2, item2);
-    }
+    dijcstraButton();  //   создание массива весов и поиск кратчайших путей по алгоритму Дейкстры
     connect(ui->pushButton, SIGNAL (released()), this, SLOT (dijcstraButton()));
     connect(ui->pushButton_2, SIGNAL (released()), this, SLOT (lr1Button()));
     ui->pushButton->setVisible(false);
@@ -506,8 +483,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableWidget->setVisible(false);
 
     //
-    /**/
+    /*  Выполнение ЛР №2  */
     //
+
+    //  Настройка таблицы
     for(int i = 1; i < 20; i++){
         QTableWidgetItem* item = new QTableWidgetItem();
         item->setText(QString::number(i));
