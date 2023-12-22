@@ -1,3 +1,4 @@
+
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
@@ -503,6 +504,17 @@ MainWindow::MainWindow(QWidget *parent)
     ui->spinBox->setVisible(false);
     ui->label->setVisible(false);
     ui->tableWidget->setVisible(false);
+
+    //
+    /**/
+    //
+    for(int i = 1; i < 20; i++){
+        QTableWidgetItem* item = new QTableWidgetItem();
+        item->setText(QString::number(i));
+        ui->tableWidget_2->setItem(i-1, 0, item);
+    }
+    ui->tableWidget_2->setVisible(false);
+
 }
 
 MainWindow::~MainWindow()
