@@ -1,100 +1,10 @@
+#define INF 9999
+
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "Algorithms.h"
 
 using namespace std;
-
-#define INF 99999
-//#ifdef Dijcstra
-struct ver {
-    double minval;
-    string path;
-    bool used;
-};
-//#endif
-
-// соединение узлов рёбрами
-void LineFromCToC(int x1, int y1, int x2, int y2, QPainter *painter){
-    float min = INF,
-        xm1, ym1,  // лучшие значения
-        xm2, ym2,
-        xb, yb,  // очередная найденная точка окружности
-        grad = 0,  // угол в градусах
-        rad = 0;  // угол в радианах
-    x1 += 12;  // из данных координат получаются центры окружностей
-    x2 += 12;
-    y1 += 12;
-    y2 += 12;
-    xm1 = cos(rad) * 12 + x1;
-    ym1 = sin(rad) * 12 + y1;
-    xb = cos(rad) * 12 + x1;
-    yb = sin(rad) * 12 + y1;
-    while(grad < 360){  // перебор точек второй окружности
-        if (min > sqrt(pow(x2 - xb , 2) + pow(y2 - yb , 2)) ){  // проверка точки на минимум
-            min = sqrt(pow(x2 - xb , 2) + pow(y2 - yb , 2));  // запись нового минимума
-            xm1 = xb;
-            ym1 = yb;
-        }
-        grad ++;// переход к следующей итерации
-        rad = grad * M_PI / 180.0;
-
-        xb = cos(rad) * 12 + x1;
-        yb = sin(rad) * 12 + y1;
-    }
-    min = INF;
-    grad = 0,
-        rad = 0;
-    xm2 = cos(rad) * 12 + x2;
-    ym2 = sin(rad) * 12 + y2;
-    xb = cos(rad) * 12 + x2;
-    yb = sin(rad) * 12 + y2;
-    while(grad < 360){  // перебор точек второй окружности
-        if (min > sqrt(pow(x1 - xb , 2) + pow(y1 - yb , 2)) ){  // проверка точки на минимум
-            min = sqrt(pow(x1 - xb , 2) + pow(y1 - yb , 2));  // запись нового минимума
-            xm2 = xb;
-            ym2= yb;
-        }
-        grad ++;  // переход к следующей итерации
-        rad = grad * M_PI / 180.0;
-
-        xb = cos(rad) * 12 + x2;
-        yb = sin(rad) * 12 + y2;
-    }
-    //  рисование ребра по полученным ближайшим друг к другу точкам
-    painter->drawLine((int)xm1, (int)ym1, (int)xm2, (int)ym2);
-}
-
-vector<ver> Dijcstra(int a, double v[10][10]/*, string *str, int *val*/){  // реализация алгоритма Дейкстры
-    vector<ver> arr(10);
-    int n = 10, ve;
-    a--;
-    for (int i = 0; i < 10; i++){
-        arr[i].minval = INF;
-        arr[i].path = "";
-        arr[i].used = false;
-    }
-    arr[a].minval = 0;
-    arr[a].path = to_string(a + 1);
-    for (int i = 0; i < n; i++){
-        ve = -1;
-        for (int j = 0; j < n; j++){
-            if (!arr[j].used && (ve == -1 || arr[ve].minval > arr[j].minval )){
-                ve = j;
-            }
-        }
-        if (arr[ve].minval == INF){
-            break;
-        }
-        arr[ve].used = true;
-        for(int j = 0; j < n; j++){
-            if(arr[ve].minval + v[ve][j] < arr[j].minval){
-                arr[j].minval = arr[ve].minval + v[ve][j];
-                arr[j].path = arr[ve].path + "-" + to_string(j + 1);
-            }
-        }
-    }
-
-    return arr;
-}
 
 void MainWindow::dijcstraButton(){
     /*  Создание массива весов  */
@@ -467,36 +377,13 @@ MainWindow::MainWindow(QWidget *parent)
         label19_3->setGeometry(230 + 8, 375 + 4, 230 + 24, 375 + 20);
         label19_3->show();
 
-    /*  Создание массива весов  */
-    double v [10][10] =
-        {0, 3.1943, 10.433, 2.3425, INF, INF, INF, INF, INF, INF,
-         3.1943, 0, INF, 4.376, 6.549, INF, INF, INF, INF, INF,
-         10.433, INF, 0, INF, INF, 7.341, INF, INF, INF, INF,
-         2.3425, 4.376, INF, 0, 5.982, 7.547, 5.2475, INF, INF, INF,
-         INF, 6.549, INF, 5.982, 0, INF, 6.4318, 5.4566, INF, INF,
-         6.455, INF, 7.341, 7.547, INF, 0, 6.7876, INF, 8.3428, INF,
-         INF, INF, INF, 5.2475, 6.4318, 6.7876, 0, 4.87, 5.1207, INF,
-         INF, INF, INF, INF, 5.4566, INF, 4.87, 0, 2.1452, 6.8721,
-         INF, INF, INF, INF, INF, 8.3428, 5.1207, 2.1452, 0, 7.4321,
-         INF, INF, INF, INF, INF, INF, INF, 6.8721, 7.4321, 0};
-
     /*  Заполнение таблицы  */
     ui->tableWidget->setColumnCount(2);
     ui->tableWidget->setRowCount(10);
     QStringList hLabels;
     hLabels<<"Расстояние"<<"Путь";
     ui->tableWidget->setHorizontalHeaderLabels(hLabels);
-    vector<ver> paths(10);
-    int a = ui->spinBox->value();
-    paths = Dijcstra(a, v);
-    for(int i = 0; i < 10; i++){
-        QTableWidgetItem* item = new QTableWidgetItem();
-        item->setText(QString::fromStdString(paths[i].path));
-        ui->tableWidget->setItem(i - 1, 3, item);
-        QTableWidgetItem* item2 = new QTableWidgetItem();
-        item2->setText(QString::number(paths[i].minval));
-        ui->tableWidget->setItem(i - 1, 2, item2);
-    }
+    dijcstraButton();
     connect(ui->pushButton, SIGNAL (released()), this, SLOT (dijcstraButton()));
     connect(ui->pushButton_2, SIGNAL (released()), this, SLOT (lr1Button()));
     ui->pushButton->setVisible(false);
