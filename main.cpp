@@ -19,13 +19,9 @@ int main(int argc, char *argv[])
             break;
         }
     }
-//    QGraphicsScene scene;
-//    scene.addText("HELLO WORLD!!!");
-
-//    QGraphicsView view(&scene);
-//    view.show();
     MainWindow w;
     w.setStyleSheet("MainWindow {background-color : white; color : black;}");
+    w.setWindowTitle("ММКС - Лабораторный практикум");
     w.show();
 
     return app.exec();
